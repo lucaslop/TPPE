@@ -5,18 +5,21 @@ import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Vector;
 import exceptions.ArquivoNaoEncontrado;
+import exceptions.DelimitadorException;
 
 public class Parser {
 	// Vetor de inteirros
 	private Vector <Vector <Integer>> arq;
 	// Vetor de Doubles
 	private Vector <Vector <Double>> arqDouble;
+	private char delimitador;
 
 	
 	
 	public Parser(){
 		arq = new Vector <Vector <Integer>>();
 		arqDouble = new Vector <Vector <Double>>();
+		delimitador=';';
 	}
 
 	// função para ler arquivo
@@ -61,6 +64,19 @@ public class Parser {
 	
 	public Vector<Vector<Double>> getBufferDouble() {
 		return arqDouble;
+	}
+	
+	public void setDelimitador(String delimitador) throws DelimitadorException {
+		if (delimitador.length() == 1) {
+			this.delimitador = delimitador.charAt(0);
+		}
+		else {
+			throw new DelimitadorException(delimitador);
+		}
+	}
+
+	public char getDelimitador() {
+		return delimitador;
 	}
 	
 }
