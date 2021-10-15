@@ -80,5 +80,21 @@ public class TesteLerArquivo {
 	}
 
 
+	
+
+	@Test(expected=ArquivoNaoEncontrado.class)
+	public void TesteLerArquivoInexistenteInteiro() throws ArquivoNaoEncontrado {
+		Parser parser = new Parser();
+
+		parser.lerArq("arquivos/arquivoc.out","inteiro");
+	}
+	
+	@Test(expected=ArquivoNaoEncontrado.class)
+	public void TesteLerArquivoInexistenteDouble() throws ArquivoNaoEncontrado {
+		Parser parser = new Parser();
+
+		parser.lerArq("arquivos/arquivoc.out","double");
+	}
+
 
 }
