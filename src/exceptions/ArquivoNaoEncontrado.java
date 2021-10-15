@@ -1,10 +1,16 @@
 package exceptions;
 
 
+
 public class ArquivoNaoEncontrado extends Exception {
 
-	public ArquivoNaoEncontrado(String arq){
-        super("Erro ao abrir o arquivo: " + arq);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public ArquivoNaoEncontrado(String msg){
+        super("Nao foi possivel abrir o arquivo: " + msg);
 	}
 
 }
