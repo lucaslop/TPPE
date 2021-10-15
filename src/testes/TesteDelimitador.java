@@ -1,7 +1,7 @@
 package testes;
 
 import aplication.Parser;
-
+import exceptions.DelimitadorException;
 public class TesteDelimitador {
 
 	
