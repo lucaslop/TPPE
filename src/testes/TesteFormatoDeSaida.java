@@ -11,9 +11,15 @@ public class TesteFormatoDeSaida {
 	Parser parser = new Parser();
 	
 	@Test
-	public void testeFormatoDeSaida() {
-		parser.setFormatoSaida(parser.coluna);
-		assertEquals(parser.coluna, parser.getFormatoSaida());
+	public void testeFormatoDeSaidaDeColuna() {
+		parser.setFormatoSaida(Parser.coluna);
+		assertEquals(Parser.coluna, parser.getFormatoSaida());
+	}
+	
+	@Test
+	public void testeDefinirFormatoSaidaLinha() {
+		parser.setFormatoSaida(Parser.linha);
+		assertEquals(Parser.linha, parser.getFormatoSaida());
 	}
 	
 }

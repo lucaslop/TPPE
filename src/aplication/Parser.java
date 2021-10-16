@@ -19,14 +19,16 @@ public class Parser {
 	private Vector <Vector <Double>> arqDouble;
 	private char delimitador;
 	private String caminhoDeSaida;
-	public int coluna=0;
-	
+	public static int coluna=0;
+	public static int linha=1;
+	private int formato;
 	
 	public Parser(){
 		arq = new Vector <Vector <Integer>>();
 		arqDouble = new Vector <Vector <Double>>();
 		delimitador=';';
 		caminhoDeSaida="arquivos/";
+		this.formato = coluna;
 	}
 
 	// função para ler arquivo
@@ -109,13 +111,13 @@ public class Parser {
 		return caminhoDeSaida;
 	}
 	
-	public void setFormatoSaida(int coluna) {
-		// TODO Auto-generated method stub
+	public void setFormatoSaida(int formato) {
+		this.formato = formato;
 
 	}
 
 	public int getFormatoSaida() {
-		return coluna;
+		return formato;
 	}
 
 	
