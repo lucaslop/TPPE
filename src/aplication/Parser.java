@@ -79,6 +79,16 @@ public class Parser {
 		return delimitador;
 	}
 	
+	
+	public void setArquivoSaida(String caminho) {
+		return;
+	}
+
+	public String getArquivoSaida() {
+		return "arquivos/";
+	}
+
+	
 }
 
 

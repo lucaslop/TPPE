@@ -10,7 +10,7 @@ import exceptions.EscritaNaoPermitidaException;
 
 public class TesteArquivoDeSaida {
 
-		Parser parse = new Parser();
+		Parser parser = new Parser();
 		
 		@Test
 		public void testeArquivoDeSaida() throws EscritaNaoPermitidaException {
