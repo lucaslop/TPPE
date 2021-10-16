@@ -23,7 +23,7 @@ public class TesteFormatoDeSaida {
 	}
 	
 	@Test
-	public void testeDefinirFormatoSaidaGenerico() {
+	public void testeDefinirFormatoSaidaQualquer() {
 		parser.setFormatoSaida('.');
 		assertEquals('.', parser.getFormatoSaida());
 	}
