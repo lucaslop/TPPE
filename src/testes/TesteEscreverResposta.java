@@ -18,13 +18,13 @@ public class TesteEscreverResposta {
 
 	
 	@Test
-	public void testeEscreverRespostaInteiro()throws ArquivoNaoEncontrado, DelimitadorException, FileNotFoundException {
+	public void testeEscreverRespostaInteiro()throws ArquivoNaoEncontrado, DelimitadorException, FileNotFoundException, EscritaNaoPermitidaException {
 		parser.lerArq("arquivos/analysisTime.out", "inteiro");
 		parser.setDelimitador(",");
 		parser.setFormatoSaida(Parser.linha);
-		parser.escreverArquivoDeResposta();
+		parser.escreverArquivoDeResposta("inteiro");
 		
-		String caminho = parser.getArquivoDeResposta("inteiro");
+		String caminho = parser.getArquivoDeResposta();
 		Scanner input = new Scanner(new FileReader(caminho));
 		Vector <Vector <Integer>> array = new Vector <Vector <Integer>>();
 		while(input.hasNextLine()) {
@@ -45,13 +45,13 @@ public class TesteEscreverResposta {
 	
 	
 	@Test
-	public void testeEscreverRespostaDouble()throws ArquivoNaoEncontrado, DelimitadorException, FileNotFoundException {
+	public void testeEscreverRespostaDouble()throws ArquivoNaoEncontrado, DelimitadorException, FileNotFoundException, EscritaNaoPermitidaException {
 		parser.lerArq("arquivos/analysisMemory.out", "double");
 		parser.setFormatoSaida(Parser.linha);
 		parser.setDelimitador(",");
-		parser.escreverArquivoDeResposta();
+		parser.escreverArquivoDeResposta("double");
 		
-		String caminho = parser.getArquivoDeResposta("double");
+		String caminho = parser.getArquivoDeResposta();
 		Scanner input = new Scanner(new FileReader(caminho));
 		Vector <Vector <Double>> array = new Vector <Vector <Double>>();
 		while(input.hasNextLine()) {
@@ -68,6 +68,9 @@ public class TesteEscreverResposta {
 
 		assertEquals(array, parser.getBufferDouble());
 	}
+	
+
+
 }
 
 
