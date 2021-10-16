@@ -19,7 +19,7 @@ public class Parser {
 	private Vector <Vector <Double>> arqDouble;
 	private char delimitador;
 	private String caminhoDeSaida;
-
+	public int coluna=0;
 	
 	
 	public Parser(){
@@ -107,6 +107,15 @@ public class Parser {
 
 	public String getArquivoSaida() {
 		return caminhoDeSaida;
+	}
+	
+	public void setFormatoSaida(int coluna) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public int getFormatoSaida() {
+		return coluna;
 	}
 
 	
