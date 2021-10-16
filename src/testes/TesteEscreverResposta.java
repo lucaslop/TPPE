@@ -2,6 +2,7 @@ package testes;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Vector;
@@ -17,23 +18,25 @@ public class TesteEscreverResposta {
 
 	
 	@Test
-	public void testeEscreverRespostaInteiro()throws ArquivoNaoEncontrado, DelimitadorException {
+	public void testeEscreverRespostaInteiro()throws ArquivoNaoEncontrado, DelimitadorException, FileNotFoundException {
 		parser.lerArq("arquivos/analysisTime.out", "inteiro");
-		parser.setDelimitador("/");
+		parser.setDelimitador(",");
 		parser.setFormatoSaida(Parser.linha);
-		parser.escreverResposta();
+		parser.escreverArquivoDeResposta();
 		
-		String caminho = parser.getArquivoSaida();
+		String caminho = parser.getArquivoDeResposta("inteiro");
 		Scanner input = new Scanner(new FileReader(caminho));
 		Vector <Vector <Integer>> array = new Vector <Vector <Integer>>();
 		while(input.hasNextLine()) {
 			String dados = input.nextLine();
-			String colunas[] = dados.split("/");
+			String colunas[] = dados.split(",");
 
 			Vector<Integer> linha = new Vector<Integer>();
-			for(int i=1; i<colunas.length; i++) {
+			 int col = colunas.length;
+			for(int i=1; i<col; i++) {
 				linha.add(Integer.parseInt(colunas[i]));
 			}
+			array.add(linha);
 
 		}
 
@@ -42,27 +45,28 @@ public class TesteEscreverResposta {
 	
 	
 	@Test
-	public void testeEscreverRespostaDouble()throws ArquivoNaoEncontrado, DelimitadorException {
+	public void testeEscreverRespostaDouble()throws ArquivoNaoEncontrado, DelimitadorException, FileNotFoundException {
 		parser.lerArq("arquivos/analysisMemory.out", "double");
-		parser.setDelimitador("/");
 		parser.setFormatoSaida(Parser.linha);
-		parser.escreverResposta();
+		parser.setDelimitador(",");
+		parser.escreverArquivoDeResposta();
 		
-		String caminho = parser.getArquivoSaida();
+		String caminho = parser.getArquivoDeResposta("double");
 		Scanner input = new Scanner(new FileReader(caminho));
 		Vector <Vector <Double>> array = new Vector <Vector <Double>>();
 		while(input.hasNextLine()) {
 			String dados = input.nextLine();
-			String colunas[] = dados.split("/");
+			String colunas[] = dados.split(",");
 
 			Vector<Double> linha = new Vector<Double>();
-			for(int i=1; i<colunas.length; i++) {
+			int col = colunas.length;
+			for(int i=1; i<col; i++) {
 				linha.add(Double.parseDouble(colunas[i]));
 			}
-
+			array.add(linha);
 		}
 
-		assertEquals(array, parser.getBufferInteger());
+		assertEquals(array, parser.getBufferDouble());
 	}
 }
 

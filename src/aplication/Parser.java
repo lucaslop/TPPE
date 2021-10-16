@@ -120,6 +120,18 @@ public class Parser {
 		return formato;
 	}
 
+	public void escreverArquivoDeResposta() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public String getArquivoDeResposta(String tipo) {
+		if(tipo == "inteiro")
+			return "arquivos/analysisTimeTab.out";
+		else
+			return "arquivos/analysisMemoryTab.out";
+	}
+
 	
 }
 
