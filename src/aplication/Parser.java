@@ -6,6 +6,11 @@ import java.util.Scanner;
 import java.util.Vector;
 import exceptions.ArquivoNaoEncontrado;
 import exceptions.DelimitadorException;
+import exceptions.EscritaNaoPermitidaException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Parser {
 	// Vetor de inteirros
@@ -13,6 +18,7 @@ public class Parser {
 	// Vetor de Doubles
 	private Vector <Vector <Double>> arqDouble;
 	private char delimitador;
+	private String caminhoDeSaida;
 
 	
 	
@@ -20,6 +26,7 @@ public class Parser {
 		arq = new Vector <Vector <Integer>>();
 		arqDouble = new Vector <Vector <Double>>();
 		delimitador=';';
+		caminhoDeSaida="arquivos/";
 	}
 
 	// função para ler arquivo
@@ -80,12 +87,26 @@ public class Parser {
 	}
 	
 	
-	public void setArquivoSaida(String caminho) {
-		return;
+	public void setArquivoSaida(String caminho) throws EscritaNaoPermitidaException {
+		
+		boolean barra = caminho.endsWith("/");
+		//System.out.println(barra);
+		if (!barra) {
+			caminho = caminho + "/";
+		}
+
+		Path caminhosaida = Paths.get(caminho);
+		
+		if(!Files.isWritable(caminhosaida)) {
+			throw new EscritaNaoPermitidaException(caminho);
+		}
+
+		this.caminhoDeSaida = caminho;
 	}
+	
 
 	public String getArquivoSaida() {
-		return "arquivos/";
+		return caminhoDeSaida;
 	}
 
 	

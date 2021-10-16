@@ -17,6 +17,12 @@ public class TesteArquivoDeSaida {
 			parser.setArquivoSaida("arquivos/");
 			assertEquals("arquivos/", parser.getArquivoSaida());
 		}
+		
+		@Test
+		public void testeArquivoDeSaida02() throws EscritaNaoPermitidaException {
+			parser.setArquivoSaida("arquivos");
+			assertEquals("arquivos/", parser.getArquivoSaida());
+		}
 }	
 
 
