@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import aplication.Parser;
+import exceptions.EscritaNaoPermitidaException;
 
 
 public class TesteArquivoDeSaida {
@@ -16,6 +17,6 @@ public class TesteArquivoDeSaida {
 			parser.setArquivoSaida("arquivos/");
 			assertEquals("arquivos/", parser.getArquivoSaida());
 		}
-}
+}	
 
 
