@@ -22,4 +22,10 @@ public class TesteFormatoDeSaida {
 		assertEquals(Parser.linha, parser.getFormatoSaida());
 	}
 	
+	@Test
+	public void testeDefinirFormatoSaidaGenerico() {
+		parser.setFormatoSaida('.');
+		assertEquals('.', parser.getFormatoSaida());
+	}
+	
 }
