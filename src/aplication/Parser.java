@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class Parser {
 	// Vetor de inteirros
@@ -241,9 +242,10 @@ public class Parser {
     	return filew;
 	}
 	
-	public void fecharArquivo(BufferedWriter bufferedWriter) {
+	public void fecharArquivo(BufferedWriter bufferedWriter, FileWriter filew) {
 		try {
 			bufferedWriter.close();
+			filew.close();
 		} catch (IOException error) {
 			error.printStackTrace();
 		}
@@ -262,8 +264,8 @@ public class Parser {
     		}
     	}
     	
-    	fecharArquivo(bufferedWriter);
-	    filew.close();
+    	fecharArquivo(bufferedWriter, filew);
+	}
 	}
 	
 	public String getArquivoDeResposta() {
