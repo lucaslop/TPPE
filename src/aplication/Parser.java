@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class Parser {
 	// Vetor de inteirros
@@ -37,7 +38,7 @@ public class Parser {
 		this.formato = coluna;
 	}
 
-	// função para ler arquivo
+	// funï¿½ï¿½o para ler arquivo
 	public void lerArq(String arquivo,String tipo) throws ArquivoNaoEncontrado {
 		Scanner input;
 		try {
@@ -167,70 +168,22 @@ public class Parser {
 	    	// p formatos de linha
 	    	if(tipo == "inteiro") {
 			    if(this.formato == linha) {
-			    	for(int indexArquivo = 0; indexArquivo < this.arq.size(); indexArquivo++) {
-			    		if(indexArquivo != 0) buffereWritter.newLine();
-			    		buffereWritter.write(Integer.toString(indexArquivo+1));
-			    		for (int i=0; i < this.arq.elementAt(indexArquivo).size(); i++) {
-			    			buffereWritter.write(this.delimitador);
-			    			buffereWritter.write(Integer.toString(arq.elementAt(indexArquivo).elementAt(i)));
-			    		}
-			    	}
+			    	escreveArquivoInteiroFormatoLinha();
 			    } else if(this.formato == coluna) {
-			    	int tamanhoMax=0;
-			    	for(int i=0; i<arq.size(); i++) {
-			    		if(i!=0) buffereWritter.write(this.delimitador);
-			    		buffereWritter.write(Integer.toString(i+1));
-			    		if(arq.elementAt(i).size() > tamanhoMax) tamanhoMax = arq.elementAt(i).size();
-			    	}
-			    	buffereWritter.newLine();
-			    	for(int k=0; k<tamanhoMax; k++) { 
-			    		if(k!=0) buffereWritter.newLine();
-			    		for(int i=0; i<arq.size(); i++) {
-			    			if(i!=0) buffereWritter.write(this.delimitador);
-			    			if(arq.elementAt(i).size() > k) {
-			    				buffereWritter.write(Integer.toString(arq.elementAt(i).elementAt(k)));
-			    			}
-			    		}
-			    	}
+			    	escreveArquivoInteiroFormatoColuna();
 	
 			    }
-	    }
+	    	}
 	    	
 	    	if(tipo == "double") {
 			    if(this.formato == linha) {
-			    	for(int indexArquivo = 0; indexArquivo < this.arqDouble.size(); indexArquivo++) {
-			    		if(indexArquivo != 0) buffereWritter.newLine();
-			    		buffereWritter.write(Double.toString(indexArquivo+1));
-			    		for (int i=0; i < this.arqDouble.elementAt(indexArquivo).size(); i++) {
-			    			buffereWritter.write(this.delimitador);
-			    			buffereWritter.write(Double.toString(arqDouble.elementAt(indexArquivo).elementAt(i)));
-			    		}
-			    	}
+			    	escreveArquivoDoubleFormatoLinha();
 			    } else if(this.formato == coluna) {
-			    	int tamMax=0;
-			    	for(int i=0; i<arqDouble.size(); i++) {
-			    		if(i!=0) buffereWritter.write(this.delimitador);
-			    		buffereWritter.write(Double.toString(i+1));
-			    		if(arqDouble.elementAt(i).size() > tamMax) 
-			    			tamMax = arqDouble.elementAt(i).size();
-			    	}
-			    	buffereWritter.newLine();
-			    	for(int j=0; j<tamMax; j++) { 
-			    		if(j!=0) buffereWritter.newLine();
-			    		for(int i=0; i<arqDouble.size(); i++) {
-			    			if(i!=0) buffereWritter.write(this.delimitador);
-			    			if(arqDouble.elementAt(i).size() > j) {
-			    				buffereWritter.write(Double.toString(arqDouble.elementAt(i).elementAt(j)));
-			    			}
-			    		}
-			    	}
-	
+			    	escreveArquivoDoubleFormatoColuna();
 			    }
-	    }
+	    	}
 	    	
-
-	    	buffereWritter.close();
-		    filew.close();
+	    	fecharArquivo(buffereWritter, filew);
 	    } catch (Exception e) {
 	    	System.out.println(e);
 	    	throw new EscritaNaoPermitidaException(caminho);
@@ -238,11 +191,107 @@ public class Parser {
 		
 	}
 	
+	public FileWriter abrirArquivo() throws IOException {
+		File arquivo = new File(this.ArquivoDeSaida);
+    	if(!arquivo.exists()) {
+    		arquivo.createNewFile();
+    	}
+		
+    	FileWriter filew = new FileWriter(arquivo);
+    	return filew;
+	}
+	
+	public void fecharArquivo(BufferedWriter bufferedWriter, FileWriter filew) {
+		try {
+			bufferedWriter.close();
+			filew.close();
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
+	}
+	
+	public void escreveArquivoInteiroFormatoLinha() throws EscritaNaoPermitidaException, IOException {
+		FileWriter filew = abrirArquivo();
+    	BufferedWriter bufferedWriter = new BufferedWriter(filew);
+    	
+    	for(int indexArquivo = 0; indexArquivo < this.arq.size(); indexArquivo++) {
+    		if(indexArquivo != 0) bufferedWriter.newLine();
+    		bufferedWriter.write(Integer.toString(indexArquivo+1));
+    		for (int i=0; i < this.arq.elementAt(indexArquivo).size(); i++) {
+    			bufferedWriter.write(this.delimitador);
+    			bufferedWriter.write(Integer.toString(arq.elementAt(indexArquivo).elementAt(i)));
+    		}
+    	}
+    	
+    	fecharArquivo(bufferedWriter, filew);
+	}
+
+	public void escreveArquivoInteiroFormatoColuna() throws EscritaNaoPermitidaException, IOException {
+		FileWriter filew = abrirArquivo();
+		BufferedWriter bufferedWriter = new BufferedWriter(filew);
+		
+		int tamanhoMax=0;
+    	for(int i=0; i<arq.size(); i++) {
+    		if(i!=0) bufferedWriter.write(this.delimitador);
+    		bufferedWriter.write(Integer.toString(i+1));
+    		if(arq.elementAt(i).size() > tamanhoMax) tamanhoMax = arq.elementAt(i).size();
+    	}
+    	bufferedWriter.newLine();
+    	for(int k=0; k<tamanhoMax; k++) { 
+    		if(k!=0) bufferedWriter.newLine();
+    		for(int i=0; i<arq.size(); i++) {
+    			if(i!=0) bufferedWriter.write(this.delimitador);
+    			if(arq.elementAt(i).size() > k) {
+    				bufferedWriter.write(Integer.toString(arq.elementAt(i).elementAt(k)));
+    			}
+    		}
+    	}
+    	
+    	fecharArquivo(bufferedWriter, filew);
+	}
+	
+	public void escreveArquivoDoubleFormatoLinha() throws IOException {
+		FileWriter filew = abrirArquivo();
+		BufferedWriter bufferedWriter = new BufferedWriter(filew);
+		
+		for(int indexArquivo = 0; indexArquivo < this.arqDouble.size(); indexArquivo++) {
+    		if(indexArquivo != 0) bufferedWriter.newLine();
+    		bufferedWriter.write(Double.toString(indexArquivo+1));
+    		for (int i=0; i < this.arqDouble.elementAt(indexArquivo).size(); i++) {
+    			bufferedWriter.write(this.delimitador);
+    			bufferedWriter.write(Double.toString(arqDouble.elementAt(indexArquivo).elementAt(i)));
+    		}
+    	}
+	
+		fecharArquivo(bufferedWriter, filew);
+	}
+	
+	public void escreveArquivoDoubleFormatoColuna() throws IOException {
+		FileWriter filew = abrirArquivo();
+		BufferedWriter bufferedWriter = new BufferedWriter(filew);
+		
+		int tamMax=0;
+    	for(int i=0; i<arqDouble.size(); i++) {
+    		if(i!=0) bufferedWriter.write(this.delimitador);
+    		bufferedWriter.write(Double.toString(i+1));
+    		if(arqDouble.elementAt(i).size() > tamMax) 
+    			tamMax = arqDouble.elementAt(i).size();
+    	}
+    	bufferedWriter.newLine();
+    	for(int j=0; j<tamMax; j++) { 
+    		if(j!=0) bufferedWriter.newLine();
+    		for(int i=0; i<arqDouble.size(); i++) {
+    			if(i!=0) bufferedWriter.write(this.delimitador);
+    			if(arqDouble.elementAt(i).size() > j) {
+    				bufferedWriter.write(Double.toString(arqDouble.elementAt(i).elementAt(j)));
+    			}
+    		}
+    	}
+    	
+    	fecharArquivo(bufferedWriter, filew);
+	}
+	
 	public String getArquivoDeResposta() {
 		return ArquivoDeSaida;
 	}
-
-	
 }
-
-
