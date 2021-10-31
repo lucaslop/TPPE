@@ -37,7 +37,7 @@ public class Parser {
 		this.formato = coluna;
 	}
 
-	// função para ler arquivo
+	// funï¿½ï¿½o para ler arquivo
 	public void lerArq(String arquivo,String tipo) throws ArquivoNaoEncontrado {
 		Scanner input;
 		try {
@@ -167,14 +167,7 @@ public class Parser {
 	    	// p formatos de linha
 	    	if(tipo == "inteiro") {
 			    if(this.formato == linha) {
-			    	for(int indexArquivo = 0; indexArquivo < this.arq.size(); indexArquivo++) {
-			    		if(indexArquivo != 0) buffereWritter.newLine();
-			    		buffereWritter.write(Integer.toString(indexArquivo+1));
-			    		for (int i=0; i < this.arq.elementAt(indexArquivo).size(); i++) {
-			    			buffereWritter.write(this.delimitador);
-			    			buffereWritter.write(Integer.toString(arq.elementAt(indexArquivo).elementAt(i)));
-			    		}
-			    	}
+			    	escreveArquivoInteiroFormatoLinha();
 			    } else if(this.formato == coluna) {
 			    	int tamanhoMax=0;
 			    	for(int i=0; i<arq.size(); i++) {
@@ -236,6 +229,41 @@ public class Parser {
 	    	throw new EscritaNaoPermitidaException(caminho);
 	    }
 		
+	}
+	
+	public FileWriter abrirArquivo() throws IOException {
+		File arquivo = new File(this.ArquivoDeSaida);
+    	if(!arquivo.exists()) {
+    		arquivo.createNewFile();
+    	}
+		
+    	FileWriter filew = new FileWriter(arquivo);
+    	return filew;
+	}
+	
+	public void fecharArquivo(BufferedWriter bufferedWriter) {
+		try {
+			bufferedWriter.close();
+		} catch (IOException error) {
+			error.printStackTrace();
+		}
+	}
+	
+	public void escreveArquivoInteiroFormatoLinha() throws EscritaNaoPermitidaException, IOException {
+		FileWriter filew = abrirArquivo();
+    	BufferedWriter bufferedWriter = new BufferedWriter(filew);
+    	
+    	for(int indexArquivo = 0; indexArquivo < this.arq.size(); indexArquivo++) {
+    		if(indexArquivo != 0) bufferedWriter.newLine();
+    		bufferedWriter.write(Integer.toString(indexArquivo+1));
+    		for (int i=0; i < this.arq.elementAt(indexArquivo).size(); i++) {
+    			bufferedWriter.write(this.delimitador);
+    			bufferedWriter.write(Integer.toString(arq.elementAt(indexArquivo).elementAt(i)));
+    		}
+    	}
+    	
+    	fecharArquivo(bufferedWriter);
+	    filew.close();
 	}
 	
 	public String getArquivoDeResposta() {
