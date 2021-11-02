@@ -5,12 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import aplication.Parser;
+import aplication.Reader;
 import exceptions.ArquivoNaoEncontrado;
 public class TesteLerArquivo {
 	
 	@Test
 	public void TesteLerArquivoAnalysisMemory() throws ArquivoNaoEncontrado {
 		Parser parser = new Parser();
+		Reader reader = new Reader(parser);
+		
 		@SuppressWarnings("serial")
 		List<List<Double>> array = new ArrayList<List<Double>>() {{
  /*0*/		    add(Arrays.asList(34.63005828857422, 34.62224578857422, 34.62224578857422, 34.62224578857422,34.62224578857422,34.62224578857422,34.62224578857422,34.62224578857422,34.62224578857422,34.62224578857422,34.62224578857422));
@@ -40,9 +43,9 @@ public class TesteLerArquivo {
 		
 
 		
-		parser.lerArq("arquivos/analysisMemory.out","double");
+		reader.lerArquivo("arquivos/analysisMemory.out","double");
 		
-		assertEquals(array, parser.getBufferDouble());
+		assertEquals(array, reader.getParser().getBufferDouble());
 	}
 	
 	@Test
