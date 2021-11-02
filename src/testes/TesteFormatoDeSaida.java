@@ -12,20 +12,20 @@ public class TesteFormatoDeSaida {
 	
 	@Test
 	public void testeFormatoDeSaidaDeColuna() {
-		parser.setFormatoSaida(Parser.coluna);
-		assertEquals(Parser.coluna, parser.getFormatoSaida());
+		parser.setFormato(Parser.coluna);
+		assertEquals(Parser.coluna, parser.getFormato());
 	}
 	
 	@Test
 	public void testeDefinirFormatoSaidaLinha() {
-		parser.setFormatoSaida(Parser.linha);
-		assertEquals(Parser.linha, parser.getFormatoSaida());
+		parser.setFormato(Parser.linha);
+		assertEquals(Parser.linha, parser.getFormato());
 	}
 	
 	@Test
 	public void testeDefinirFormatoSaidaQualquer() {
-		parser.setFormatoSaida('.');
-		assertEquals('.', parser.getFormatoSaida());
+		parser.setFormato('.');
+		assertEquals('.', parser.getFormato());
 	}
 	
 }
