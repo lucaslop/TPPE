@@ -10,6 +10,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import aplication.Parser;
+import aplication.Reader;
 import exceptions.ArquivoNaoEncontrado;
 
 @RunWith(Parameterized.class)
@@ -59,7 +60,9 @@ public class TesteParametrizadoValoresArquivos {
 	@Test
 	public void testNumeroAnalises() throws ArquivoNaoEncontrado {
 		Parser parser = new Parser();
-		parser.lerArq(arquivo,"inteiro");
+		Reader reader = new Reader(parser);
+		
+		reader.lerArquivo(arquivo, "inteiro");
 		Vector<Vector<Integer>> array = parser.getBufferInteger();
 		assertEquals(numeroDeAnalises, array.elementAt(numeroDeEvolucao-1).size());
 	}

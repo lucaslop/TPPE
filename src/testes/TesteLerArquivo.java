@@ -51,6 +51,8 @@ public class TesteLerArquivo {
 	@Test
 	public void TesteLerArquivoAnalysisTime() throws ArquivoNaoEncontrado {
 		Parser parser = new Parser();
+		Reader reader = new Reader(parser);
+		
 		@SuppressWarnings("serial")
 		List<List<Integer>> array = new ArrayList<List<Integer>>() {{
 			add(Arrays.asList(1110, 3200, 934, 2310, 3178, 4009, 737, 3121, 1976, 2573, 6291));
@@ -77,9 +79,9 @@ public class TesteLerArquivo {
 			 
 		}};
 		
-		parser.lerArq("arquivos/analysisTime.out","inteiro");
+		reader.lerArquivo("arquivos/analysisTime.out","inteiro");
 
-		assertEquals(array, parser.getBufferInteger());
+		assertEquals(array, reader.getParser().getBufferInteger());
 	}
 
 
@@ -88,15 +90,17 @@ public class TesteLerArquivo {
 	@Test(expected=ArquivoNaoEncontrado.class)
 	public void TesteLerArquivoInexistenteInteiro() throws ArquivoNaoEncontrado {
 		Parser parser = new Parser();
+		Reader reader = new Reader(parser);
 
-		parser.lerArq("arquivos/arquivoc.out","inteiro");
+		reader.lerArquivo("arquivos/arquivoc.out","inteiro");
 	}
 	
 	@Test(expected=ArquivoNaoEncontrado.class)
 	public void TesteLerArquivoInexistenteDouble() throws ArquivoNaoEncontrado {
 		Parser parser = new Parser();
-
-		parser.lerArq("arquivos/arquivoc.out","double");
+		Reader reader = new Reader(parser);
+		
+		reader.lerArquivo("arquivos/arquivoc.out","double");
 	}
 
 
