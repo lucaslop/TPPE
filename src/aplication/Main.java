@@ -19,6 +19,7 @@ import exceptions.*;
 			Parser parser = new Parser();
 			Scanner scanner = new Scanner(System.in);
 			Writer writer = null;
+			Reader reader = new Reader(parser);
 			
 			System.out.print("Digite a pasta do arquivo de entrada: ");
 			String caminhoArquivoEntrada = scanner.next();
@@ -29,9 +30,9 @@ import exceptions.*;
 
 			try {
 				if(tipoArquivo == 1)
-					parser.lerArq(caminhoArquivoEntrada,"inteiro");
+					reader.lerArquivo(caminhoArquivoEntrada,"inteiro");
 				if (tipoArquivo==2)
-					parser.lerArq(caminhoArquivoEntrada, "double");
+					reader.lerArquivo(caminhoArquivoEntrada, "double");
 			} catch (ArquivoNaoEncontrado e) {
 				System.out.println(e);
 				System.exit(-1);

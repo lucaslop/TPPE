@@ -144,50 +144,6 @@ public class Parser {
 		return nomeArquivoDeSaida;
 	}
 
-
-	// fun��o para ler arquivo
-	public void lerArq(String arquivo,String tipo) throws ArquivoNaoEncontrado {
-		Scanner input;
-		try {
-			input  = new Scanner(new FileReader(arquivo));
-		} catch(FileNotFoundException exception) {
-			throw new ArquivoNaoEncontrado(arquivo);
-		}
-		
-		while(input.hasNextLine()) {
-
-			String data = input.nextLine();
-			
-			if (data.startsWith("-")) {
-				if(tipo == "inteiro") {
-					Vector<Integer> row = new Vector<Integer>();
-					arq.add(row);
-				}else if(tipo == "double") {
-					Vector<Double> row = new Vector<Double>();
-					arqDouble.add(row);
-				}
-			}
-			else {
-				if(tipo == "inteiro") {
-					arq.lastElement().add(Integer.parseInt(data));
-				}else if(tipo == "double") {
-					arqDouble.lastElement().add(Double.parseDouble(data));
-				}
-				
-			}
-		}
-		
-		input.close();
-		
-		int finalDoArquivo = arquivo.lastIndexOf('/');
-		if(finalDoArquivo != -1) {
-			this.nomeArquivoDeEntrada = arquivo.substring(finalDoArquivo+1);
-		} else {
-			this.nomeArquivoDeEntrada = arquivo;
-		}
-	}
-
-	
 	public Vector <Vector <Integer>> getBufferInteger() {
 		return arq;
 	}
