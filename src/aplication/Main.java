@@ -18,7 +18,9 @@ import exceptions.*;
 		public static void main(String[] args) {
 			Parser parser = new Parser();
 			Scanner scanner = new Scanner(System.in);
-
+			Writer writer = null;
+			Reader reader = new Reader(parser);
+			
 			System.out.print("Digite a pasta do arquivo de entrada: ");
 			String caminhoArquivoEntrada = scanner.next();
 			
@@ -28,9 +30,9 @@ import exceptions.*;
 
 			try {
 				if(tipoArquivo == 1)
-					parser.lerArq(caminhoArquivoEntrada,"inteiro");
+					reader.lerArquivo(caminhoArquivoEntrada,"inteiro");
 				if (tipoArquivo==2)
-					parser.lerArq(caminhoArquivoEntrada, "double");
+					reader.lerArquivo(caminhoArquivoEntrada, "double");
 			} catch (ArquivoNaoEncontrado e) {
 				System.out.println(e);
 				System.exit(-1);
@@ -51,7 +53,7 @@ import exceptions.*;
 			scanner.nextLine();
 
 			if (formatoArquivoSaida == 0 || formatoArquivoSaida == 1) {
-				parser.setFormatoSaida(formatoArquivoSaida);	
+				parser.setFormato(formatoArquivoSaida);	
 			} else {
 				System.out.println("Formato de saída inválido.");
 				System.exit(-1);
@@ -66,18 +68,21 @@ import exceptions.*;
 				System.out.println(e);
 				System.exit(-1);
 			}
-
+			
+			writer = new Writer(parser);
+								
 			try {
 				if(tipoArquivo == 1)
-					parser.escreverArquivoDeResposta("inteiro");
+					writer.escreverArquivoDeResposta("inteiro");
 				if(tipoArquivo == 2)
-					parser.escreverArquivoDeResposta("double");
-			} catch (EscritaNaoPermitidaException e) {
-				System.out.println(e);
-				System.exit(-1);
+					writer.escreverArquivoDeResposta("double");
+				
+				System.out.println("Arquivo salvo na pasta " + caminhoArquivoSaida );
+
+			} catch (Exception e) {
+				 e.printStackTrace();
 			}
 
-			System.out.println("Arquivo salvo na pasta " + caminhoArquivoSaida );
 			
 
 			scanner.close();
